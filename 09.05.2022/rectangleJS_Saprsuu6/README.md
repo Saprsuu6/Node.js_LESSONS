@@ -1,0 +1,1 @@
+instalation: npm i rectangleJS_Saprsuu6

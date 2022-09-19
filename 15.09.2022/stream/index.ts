@@ -1,30 +1,30 @@
-const fs = require("fs");
+// const fs = require("fs");
 
-var path = "./song.wav";
-var txtPath = "./asd.txt";
+// var path = "./song.wav";
+// var txtPath = "./asd.txt";
 
-// read
+// // read
 
-var readStream = fs.createReadStream(path);
+// var readStream = fs.createReadStream(path);
 
-readStream.on("data", function (chunk) {
-  console.log(chunk);
-});
-readStream.on("error", () => console.log("Error"));
-readStream.on("open", () => {
-  console.log("File opened");
-});
-readStream.on("end", () => {
-  console.log("End");
-});
-readStream.on("close", () => {
-  console.log("File closed");
-});
+// readStream.on("data", function (chunk) {
+//   console.log(chunk);
+// });
+// readStream.on("error", () => console.log("Error"));
+// readStream.on("open", () => {
+//   console.log("File opened");
+// });
+// readStream.on("end", () => {
+//   console.log("End");
+// });
+// readStream.on("close", () => {
+//   console.log("File closed");
+// });
 
-// write
+// // write
 
-var writeStram = fs.createWriteStream(txtPath);
+// var writeStram = fs.createWriteStream(txtPath);
 
-writeStram.on("open", () => {
-  writeStram.write("Hello");
-});
+// writeStram.on("open", () => {
+//   writeStram.write("Hello");
+// });

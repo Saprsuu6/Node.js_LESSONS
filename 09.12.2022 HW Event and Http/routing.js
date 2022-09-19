@@ -38,3 +38,4 @@ function page404(request, responce) {
     });
 }
 exports.page404 = page404;
+console.log("Hello");

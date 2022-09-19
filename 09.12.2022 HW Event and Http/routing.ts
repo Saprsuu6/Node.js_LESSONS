@@ -31,3 +31,5 @@ export function page404(request, responce) {
     responce.end();
   });
 }
+
+console.log("Hello")

@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
 <body>
-    <form action="/create" method="get" style="border:1px solid #ccc">
+    <form action="/create" method="post" style="border:1px solid #ccc">
         <div class="container">
           <h1>Форма регистрации</h1>
           <p>Пожалуйста, заполните эту форму, чтобы создать учетную запись.</p>
           <hr>
+
+          <input type="file" name="file">
       
           <label for="email"><b>Email</b></label>
           <input type="text" placeholder="Введите вашу почту" name="email" id="email" required>
@@ -27,7 +29,7 @@
           </label>
       
           <p>Создавая учетную запись, вы соглашаетесь с нашим <a href="#" style="color:dodgerblue">Условия и конфиденциальность</a>.</p>
-      
+
           <div class="clearfix">
             <button type="button" class="cancelbtn">Отменить</button>
             <button type="submit" class="signupbtn">Регистрация</button>

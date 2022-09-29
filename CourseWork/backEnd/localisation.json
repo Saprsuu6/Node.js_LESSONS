@@ -1,0 +1,72 @@
+{
+    "commands": {
+        "start": {
+            "ru": "начальное приветствие",
+            "en-GB": "initial greeting",
+            "en-US": "initial greeting"
+        },
+        "info": {
+            "ru": "получить информацию об авторе",
+            "en-GB": "get information about the author",
+            "en-US": "get information about the author"
+        },
+        "createtask": {
+            "ru": "создать задачу",
+            "en-GB": "create task",
+            "en-US": "create task",
+            "setname": {
+                "ru": "Укажите название задачи:",
+                "en-GB": "Set task name:",
+                "en-US": "Set task name:"
+            },
+            "setTerms": {
+                "ru": "Укажите срок (mm/dd/yyyy):",
+                "en-GB": "Set terms (mm/dd/yyyy):",
+                "en-US": "Set terms (mm/dd/yyyy):"
+            },
+            "setDescription": {
+                "ru": "Описание задачи:",
+                "en-GB": "Task description:",
+                "en-US": "Task description:"
+            },
+            "setTags": {
+                "ru": "Выбери теги:",
+                "en-GB": "Choose tags:",
+                "en-US": "Choose tags:"
+            }
+            ,
+            "setPriority": {
+                "ru": "Выбери приоритет:",
+                "en-GB": "Choose priority:",
+                "en-US": "Choose priority:"
+            }
+        }
+    },
+    "greetings": {
+        "ru": "Привет, это телеграмм бот для создания списка задач",
+        "en-GB": "Hello, this is a telegram bot for creating a task list",
+        "en-US": "Hello, this is a telegram bot for creating a task list"
+    },
+    "author": {
+        "ru": "Автор: Андрей Спарыгин из группы КНП-191",
+        "en-GB": "Author: Andry Sparigin from the KNP-191 group",
+        "en-US": "Author: Andry Sparigin from the KNP-191 group"
+    },
+    "tasks": {
+        "create": {
+            "ru": "Создать задачу",
+            "en-GB": "Create task",
+            "en-US": "Create task"
+        },
+        "edit": {
+            "ru": "Изменить задачу",
+            "en-GB": "Eedit task",
+            "en-US": "Edit task"
+        },
+        "remove": {
+            "ru": "Удалить задачу",
+            "en-GB": "Remove task",
+            "en-US": "Remove task"
+        }
+    }
+}

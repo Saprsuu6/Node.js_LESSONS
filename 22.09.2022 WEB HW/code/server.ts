@@ -1,11 +1,11 @@
-var http = require("http");
+var https = require("https");
 var fs = require("fs");
 var url = require("url");
 var path = require("path");
 var PORT = 3000;
 const {parse} = require("querystring");
 
-var server = http.createServer();
+var server = https.createServer();
 
 server.on("request", function (req, res) {
     const pathUrl = url.parse(req.url).pathname;

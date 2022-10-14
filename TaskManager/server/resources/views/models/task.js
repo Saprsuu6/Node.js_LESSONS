@@ -15,6 +15,10 @@ class MyTask {
     this.creatingDate = new Date().toLocaleString();
   }
 
+  setCreatingDate(date) {
+    this.creatingDate = date;
+  }
+
   returnTaskTeg() {
     let elementLi = document.createElement("li");
     elementLi.className = "list-group-item";
@@ -71,15 +75,16 @@ class MyTask {
     let colForBtn2 = document.createElement("div");
     colForBtn2.className = "col";
 
+    let colForBtn3 = document.createElement("div");
+    colForBtn2.className = "col";
+
     let buttonEdit = document.createElement("button");
     buttonEdit.className = "btn btn-outline-warning";
     buttonEdit.innerText = "✍";
-    buttonEdit.id = "edit";
 
     let buttonRemove = document.createElement("button");
     buttonRemove.className = "btn btn-outline-danger";
     buttonRemove.innerText = "🧺";
-    buttonRemove.id = "remove";
 
     elementLi.appendChild(elementDivCard).appendChild(elementDivBody);
 
@@ -92,6 +97,66 @@ class MyTask {
 
     colForBtn1.appendChild(buttonEdit);
     colForBtn2.appendChild(buttonRemove);
+
+    return elementLi;
+  }
+
+  returnTaskTegForProject() {
+    let elementLi = document.createElement("li");
+    elementLi.className = "list-group-item";
+
+    let elementDivCard = document.createElement("div");
+    elementDivCard.className = "card";
+
+    let elementDivBody = document.createElement("div");
+    elementDivBody.className = "card-body";
+
+    let elementH5 = document.createElement("h5");
+    elementH5.className = "card-title";
+    elementH5.innerText = this.name;
+
+    let tags = this.tags;
+    if (this.tags != "---") {
+      tags = "";
+      this.tags.forEach((tag) => {
+        tags += `#${tag} `;
+      });
+    }
+
+    let priority;
+    switch (this.priority) {
+      case "hight":
+        priority = "🥇";
+        break;
+      case "middle":
+        priority = "🥈";
+        break;
+      case "low":
+        priority = "🥉";
+        break;
+    }
+
+    let elementP = document.createElement("p");
+    elementP.className = "card-text";
+    elementP.innerText = `Terms: ${
+      this.terms.includes("T")
+        ? new Date(this.terms).toLocaleString()
+        : new Date(this.terms).toLocaleDateString()
+    }
+      Describe: ${this.describe}
+      Tags: ${tags}
+      Priority: ${priority}\n
+      Created: ${this.creatingDate}`;
+
+    let buttonAdd = document.createElement("button");
+    buttonAdd.className = "btn btn-outline-primary";
+    buttonAdd.innerText = "✅";
+
+    elementLi.appendChild(elementDivCard).appendChild(elementDivBody);
+
+    elementDivBody.appendChild(elementH5);
+    elementDivBody.appendChild(elementP);
+    elementDivBody.appendChild(buttonAdd);
 
     return elementLi;
   }

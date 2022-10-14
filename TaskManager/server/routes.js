@@ -1,53 +1,43 @@
 import express from "express";
-import MyTask from "./resources/models/task.js";
-import { tasks } from "./server.js";
-//import httpClient from "http";
+import path from "path";
+import {
+  addTask,
+  getCurrentTask,
+  removeTask,
+  updateTask,
+} from "./resources/components/tasks.js";
+import { tasks, projects } from "./storage.js";
 
+const __dirname = path.resolve();
 const router = express.Router();
 const urlencodedParser = express.urlencoded({ extended: false });
 
 router
   .route("/")
   .get((req, res) => {
-    res.sendFile(path.resolve(__dirname, "resources", "index.html"));
+    res.sendFile(path.resolve(__dirname, "resources/views", "tasks.html"));
   })
-  .post((req, res) => {
-    const task = new MyTask(
-      req.body.name,
-      req.body.terms,
-      req.body.describe,
-      req.body.tags != undefined ? req.body.tags.split(",") : undefined,
-      req.body.priority
-    );
-    //httpClient.post("http://localhost:3000/tasks", task);
-    tasks.push(task);
-    res.send(JSON.stringify(task));
-  })
-  .delete((req, res) => {
-    const index = req.body.index;
-    tasks.splice(index, 1);
-    res.send(JSON.stringify(index));
-  })
-  .put((req, res) => {
-    const index = req.body.index;
-    const task = new MyTask(
-      req.body.name,
-      req.body.terms,
-      req.body.describe,
-      req.body.tags != undefined ? req.body.tags.split(",") : undefined,
-      req.body.priority
-    );
-    tasks[index] = task;
-    res.send(
-      JSON.stringify({
-        index,
-        task,
-      })
-    );
-  });
+  .post(addTask, (req, res) => {})
+  .delete(removeTask, (req, res) => {})
+  .put(updateTask, (req, res) => {});
 
-router.route("/createProject").get((req, res) => {
-  res.sendFile(path.resolve(__dirname, "resources", "index.html"));
+router.route("/currentTask").post(getCurrentTask, (req, res) => {});
+
+router.route("/allTasks").post((req, res) => {
+  res.send(JSON.stringify(tasks));
+});
+
+router.route("/projects").get((req, res) => {
+  res.sendFile(path.resolve(__dirname, "resources/views", "projects.html"));
+});
+
+router.route("/projects/allTasks").post((req, res) => {
+  res.send(JSON.stringify(tasks));
+});
+
+router.route("/projects/preparedTask").post((req, res) => {
+  console.log(req.body);
+  // to do
 });
 
 export default router;

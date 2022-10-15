@@ -1,0 +1,12 @@
+mixin navLink(link, name, last)
+    li  
+        if (last)
+            a(href=link).nav-link.last-link=name
+        else
+            a(href=link).nav-link=name
+
+header
+    .header 
+        ul.nav 
+            for i in [{link:"#",name:"1"},{link:"#",name:"2"}]
+                +navLink(i.link, i.name, true)

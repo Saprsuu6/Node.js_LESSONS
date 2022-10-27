@@ -4,3 +4,8 @@ Content-Type: application/json
 {
     "username" : "john"
 }
+
+###
+
+GET http://localhost:3000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.am9obg.d4Jrwdzn57qCehHJEHKcGd61qwhftIYLyhf6tVZ5-Tg

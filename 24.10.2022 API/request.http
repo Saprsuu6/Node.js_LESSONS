@@ -1,0 +1,34 @@
+GET http://localhost:3000/news
+
+###
+
+POST  http://localhost:3000/news
+Content-Type: application/json
+
+{
+    "title": "News 7",
+    "text": "Text for news 2",
+    "img": "path",
+    "id_user": 1,
+    "isActive": 1
+}
+
+###
+
+DELETE http://localhost:3000/news
+
+###
+
+GET http://localhost:3000/news/2
+
+###
+
+PUT http://localhost:3000/news/2
+Content-Type: application/json
+
+{
+    "title": "News 20",
+    "text": "Text for news 20"
+}
+
+###

@@ -1,5 +1,6 @@
 const config = {
   PORT: 3000,
+  ROLE: 2,
   DB: {
     PORT: 3306,
     HOST: "localhost",

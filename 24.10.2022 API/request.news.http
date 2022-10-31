@@ -6,10 +6,10 @@ POST  http://localhost:3000/news
 Content-Type: application/json
 
 {
-    "title": "News 7",
+    "title": "News 8",
     "text": "Text for news 2",
     "img": "path",
-    "id_user": 1,
+    "id_user": null,
     "isActive": 1
 }
 
@@ -19,7 +19,7 @@ DELETE http://localhost:3000/news
 
 ###
 
-GET http://localhost:3000/news/2
+GET http://localhost:3000/news/4
 
 ###
 
@@ -32,3 +32,5 @@ Content-Type: application/json
 }
 
 ###
+
+DELETE http://localhost:3000/news/4

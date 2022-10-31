@@ -84,3 +84,22 @@ export const update_one = (id, data) => {
     );
   });
 };
+
+// delete news by id
+export const delete_news_by_id = (id) => {
+  return new Promise((resolve, reject) => {
+    connection_mysql.query(
+      "DELETE FROM list_news WHERE id=?",
+      id,
+      (err, rows) => {
+        if (err) {
+          my_logger.log("Successfull deleting all news");
+          reject(err);
+        } else {
+          my_logger.error("Unsuccessfull deleting all news");
+          resolve(rows);
+        }
+      }
+    );
+  });
+};

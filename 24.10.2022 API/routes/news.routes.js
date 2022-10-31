@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  delete_news_by_id_midleware,
   delete_news_midleware,
   get_all_midleware,
   get_current_midleware,
@@ -7,11 +8,12 @@ import {
   update_news_midleware,
 } from "../controllers/news_controller.js";
 
-const router = Router();
+const router_news = Router();
 
-router
+router_news
   .route("/news")
   .get(get_all_midleware, (req, res) => {
+    console.log(req.header.toString());
     if (req.news.length === 0) {
       res.json({ error: false, message: "No one news" });
     } else {
@@ -25,11 +27,11 @@ router
     res.json({ error: false, message: "Succesfull clearing" });
   });
 
-router.route("/").get((req, res) => {
+router_news.route("/").get((req, res) => {
   res.end("ok");
 });
 
-router
+router_news
   .route("/news/:id")
   .get(get_current_midleware, (req, res) => {
     if (req.news.length === 0) {
@@ -45,6 +47,8 @@ router
       res.json({ error: false, message: "Succesfull update" });
     }
   })
-  .delete((req, res) => {});
+  .delete(delete_news_by_id_midleware, (req, res) => {
+    res.json({ error: false, message: "Succesfull clearing" });
+  });
 
-export default router;
+export default router_news;

@@ -6,7 +6,7 @@ import {
   get_current_midleware,
   post_news_midleware,
   update_news_midleware,
-} from "../controllers/news_controller.js";
+} from "../controllers/news.controller.js";
 
 const router_news = Router();
 

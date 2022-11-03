@@ -4,6 +4,7 @@ import logger from "logger";
 import config from "./config/config.js";
 import router_news from "./routes/news.routes.js";
 import router_user from "./routes/user.routes.js";
+import router_cateories from "./routes/categories.routes.js";
 
 export const my_logger = logger.createLogger("development.log");
 const app = express();
@@ -20,6 +21,7 @@ app.use(function (req, res, next) {
   res.header("X-Powered-By", "Apache");
   next();
 });
+app.use(router_cateories);
 app.use(router_news);
 app.use(router_user);
 app.use("*", (req, res) => {

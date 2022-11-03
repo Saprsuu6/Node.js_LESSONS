@@ -6,11 +6,12 @@ POST  http://localhost:3000/news
 Content-Type: application/json
 
 {
-    "title": "News 8",
+    "title": "News 15",
     "text": "Text for news 2",
     "img": "path",
     "id_user": null,
-    "isActive": 1
+    "isActive": 1,
+    "Categori": 5
 }
 
 ###

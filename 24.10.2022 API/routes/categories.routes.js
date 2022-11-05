@@ -7,6 +7,7 @@ import {
   postCategorieMidleware,
   updateCategorieMidleware,
 } from "../controllers/categories.controller.js";
+import { isNameValid } from "../features/categories.validation.js";
 
 const router_cateories = Router();
 
@@ -20,7 +21,7 @@ router_cateories
       res.json(req.categories);
     }
   })
-  .post(postCategorieMidleware, (req, res) => {
+  .post(isNameValid, postCategorieMidleware, (req, res) => {
     res.json({ error: false, message: "Succesfull insert" });
   })
   .delete(deleteCategoriesMidleware, (req, res) => {

@@ -1,0 +1,5 @@
+GET http://localhost:3000/bitcoinInfo
+
+###
+
+GET https://api.coindesk.com/v1/bpi/currentprice.json

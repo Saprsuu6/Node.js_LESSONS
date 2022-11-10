@@ -2,10 +2,25 @@ POST http://localhost:3000/news
 Content-Type: application/json
 
 {
-    "title": "News one",
-    "text": "Text for news 1"
+    "title": "News three",
+    "text": "Text for news 3",
+    "authorEmail": "coffeei.2002@gmail.com"
+}
+
+###
+
+PUT http://localhost:3000/news/636cb74103209c7333151f35
+Content-Type: application/json
+
+{
+    "title": "News four",
+    "authorEmail": "coffeei.2002@gmail.com"
 }
 
 ###
 
 GET http://localhost:3000/news
+
+###
+
+DELETE  http://localhost:3000/news/636cc20651db9973050bba8b

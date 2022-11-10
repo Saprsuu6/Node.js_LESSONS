@@ -1,21 +1,28 @@
 import { Router } from "express";
-import { codes, getBitcoinInfo } from "../features/bitcoinInfo.js";
+import { getBitcoinInfo } from "../features/bitcoinInfo.js";
+import { checkAttempt } from "../features/checkOneTime.js";
+import { getExchangeRate } from "../features/exchangeRate.js";
 import { Error, Ok } from "../features/features.js";
-import { BitcoinInfo, News } from "../models/models.js";
+import { BitcoinInfo, ExchangeRate, News } from "../models/models.js";
 
 const router = Router();
 
 router
   .route("/news")
   .post(async (req, res) => {
-    const { title, text } = req.body;
-    const news = new News({ title, text });
+    const { title, text, authorEmail } = req.body;
+    const news = new News({ title, text, authorEmail });
+
+    if (req.body.text && req.body.text.trim() === "") {
+      res.json(new Error("News has not been updated: (You have to set text)"));
+      return;
+    }
 
     try {
       await news.save();
       res.json(new Ok("News has been added"));
     } catch (err) {
-      res.json(new Error("News has not been added"));
+      res.json(new Error(err.message));
     }
   })
   .get(async (req, res) => {
@@ -27,30 +34,85 @@ router
     }
   });
 
-router.route("/bitcoinInfo").get(getBitcoinInfo, (req, res) => {
+router
+  .route("/news/:id")
+  .put(async (req, res) => {
+    console.log(req.body);
+
+    if (req.body.text && req.body.text.trim() === "") {
+      res.json(new Error("News has not been updated: (You have to set text)"));
+      return;
+    }
+
+    try {
+      const obj = await News.findByIdAndUpdate(req.params.id, req.body, {
+        runValidators: true,
+      });
+      res.json(new Ok(`News '${obj.title}' has been updated`));
+    } catch (err) {
+      res.json(new Error("News has not been updated"));
+    }
+  })
+  .delete(async (req, res) => {
+    try {
+      const obj = await News.findByIdAndDelete(req.params.id);
+      res.json(new Ok(`News '${obj.title}' has been deleted`));
+    } catch (err) {
+      res.json(new Error("News has not been deleted"));
+    }
+  });
+
+router.route("/bitcoinInfo").get(getBitcoinInfo, async (req, res) => {
   const date = new Date(req.bitcoinInfo.time.updated).toLocaleString();
+  const codes = req.bitcoinInfo.bpi;
+  const infos = [];
 
-  new Promise(async (resolve, reject) => {
-    const infos = [];
+  for (const key of Object.keys(codes)) {
+    const { code } = req.bitcoinInfo.bpi[key];
+    const { rate_float } = req.bitcoinInfo.bpi[key];
+    const bitcoinInfo = new BitcoinInfo({ code, rate_float, date });
 
-    codes.forEach(async (element) => {
-      const { code } = req.bitcoinInfo.bpi[element];
-      const { rate_float } = req.bitcoinInfo.bpi[element];
-      const bitcoinInfo = new BitcoinInfo({ code, rate_float, date });
+    try {
+      await bitcoinInfo.save();
+    } catch (err) {
+      res.json(new Error(err.message));
+      return;
+    }
+
+    infos.push(bitcoinInfo);
+  }
+
+  res.json(infos);
+});
+
+router
+  .route("/financeCourse/:userCode")
+  .get(checkAttempt, getExchangeRate, async (req, res) => {
+    const { userCode } = req.params;
+    const rates = req.exchangeRate;
+    let obj = undefined;
+
+    for (const info of rates) {
+      const code = info.cc;
+      const txt = info.txt;
+      const rate = info.rate;
+      const exchangedate = info.exchangedate;
+
+      const exchangeRate = new ExchangeRate({ code, txt, rate, exchangedate });
 
       try {
-        await bitcoinInfo.save();
+        await exchangeRate.save();
       } catch (err) {
-        res.json(new Error("Bitcoin info has not been added"));
+        res.json(new Error(err.message));
         return;
       }
 
-      infos.push(bitcoinInfo);
-    });
-    await resolve(infos);
-  }).then((data) => {
-    res.json(data);
+      if (code === userCode.toUpperCase()) {
+        obj = info;
+      }
+    }
+
+    res.json(obj);
   });
-});
 
 export default router;

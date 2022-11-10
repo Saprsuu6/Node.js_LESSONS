@@ -1,9 +1,9 @@
 import { Error, Ok } from "../features/features.js";
 
-var lastTime = undefined;
+export var lastTime = undefined;
 
 export const checkAttempt = (req, res, next) => {
-  const tooday = new Date().getDay();
+  let tooday = new Date().getDay();
 
   if (lastTime === undefined || lastTime != tooday) {
     lastTime = tooday;

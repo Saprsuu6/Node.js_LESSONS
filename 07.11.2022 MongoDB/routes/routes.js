@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getBitcoinInfo } from "../features/bitcoinInfo.js";
-import { checkAttempt } from "../features/checkOneTime.js";
+import { checkAttempt, lastTime } from "../features/checkOneTime.js";
 import { getExchangeRate } from "../features/exchangeRate.js";
 import { Error, Ok } from "../features/features.js";
 import { BitcoinInfo, ExchangeRate, News } from "../models/models.js";
@@ -93,26 +93,39 @@ router
     let obj = undefined;
 
     for (const info of rates) {
-      const code = info.cc;
-      const txt = info.txt;
-      const rate = info.rate;
-      const exchangedate = info.exchangedate;
-
-      const exchangeRate = new ExchangeRate({ code, txt, rate, exchangedate });
-
-      try {
-        await exchangeRate.save();
-      } catch (err) {
-        res.json(new Error(err.message));
-        return;
-      }
-
-      if (code === userCode.toUpperCase()) {
+      if (info.cc === userCode.toUpperCase()) {
         obj = info;
       }
     }
 
-    res.json(obj);
+    if (obj === undefined) {
+      //console.log(typeof lastTime);
+      //lastTime = undefined; вопрос!!!
+      res.json(new Error("Not supported code"));
+    } else {
+      for (const info of rates) {
+        const code = info.cc;
+        const txt = info.txt;
+        const rate = info.rate;
+        const exchangedate = info.exchangedate;
+
+        const exchangeRate = new ExchangeRate({
+          code,
+          txt,
+          rate,
+          exchangedate,
+        });
+
+        try {
+          await exchangeRate.save();
+        } catch (err) {
+          res.json(new Error(err.message));
+          return;
+        }
+      }
+
+      res.json(obj);
+    }
   });
 
 export default router;

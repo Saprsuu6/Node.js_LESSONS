@@ -2,6 +2,10 @@ import { Error, Ok } from "../features/features.js";
 
 export var lastTime = undefined;
 
+export const changeLastTime = (value) => {
+  lastTime = value;
+};
+
 export const checkAttempt = (req, res, next) => {
   let tooday = new Date().getDay();
 

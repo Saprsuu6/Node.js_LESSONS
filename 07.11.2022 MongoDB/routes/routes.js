@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getBitcoinInfo } from "../features/bitcoinInfo.js";
-import { checkAttempt, lastTime } from "../features/checkOneTime.js";
+import { changeLastTime, checkAttempt } from "../features/checkOneTime.js";
 import { getExchangeRate } from "../features/exchangeRate.js";
 import { Error, Ok } from "../features/features.js";
 import { BitcoinInfo, ExchangeRate, News } from "../models/models.js";
@@ -99,8 +99,7 @@ router
     }
 
     if (obj === undefined) {
-      //console.log(typeof lastTime);
-      //lastTime = undefined; вопрос!!!
+      changeLastTime(undefined);
       res.json(new Error("Not supported code"));
     } else {
       for (const info of rates) {
